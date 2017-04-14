@@ -1,0 +1,13 @@
+description "Almanach API Daemon"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn limit 10 5
+
+setuid almanach
+setgid almanach
+
+script
+   exec /opt/almanach-api/bin/almanach-api --config-file=/etc/almanach/almanach.conf --log-file=/var/log/almanach/api.log
+end script

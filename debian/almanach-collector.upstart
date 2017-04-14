@@ -1,0 +1,13 @@
+description "Almanach Collector Daemon"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+setuid almanach
+setgid almanach
+
+script
+   exec /opt/almanach-collector/bin/almanach-collector --config-file=/etc/almanach/almanach.conf --log-file=/var/log/almanach/collector.log
+end script

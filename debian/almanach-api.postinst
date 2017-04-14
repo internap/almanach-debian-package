@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ] ; then
+
+    if ! getent group almanach > /dev/null 2>&1; then
+        addgroup --system almanach >/dev/null
+    fi
+
+    if ! getent passwd almanach > /dev/null 2>&1; then
+        adduser --system --home /var/lib/almanach --ingroup almanach \
+            --no-create-home --shell /bin/false almanach
+    fi
+
+    mkdir -p /var/lib/almanach /var/log/almanach /etc/almanach
+    chown -R almanach:adm /var/log/almanach
+    chmod 0755 /var/log/almanach /etc/almanach
+    chown -R almanach:almanach /var/lib/almanach /etc/almanach
+    chown root:root /etc/logrotate.d/almanach
+fi
+
+if [ ! -e '/etc/init.d/almanach-api' ]; then
+  ln -s /lib/init/upstart-job /etc/init.d/almanach-api
+fi
+
+chown root:root /etc/init/almanach-api.conf
+invoke-rc.d almanach-api start
+
+exit 0

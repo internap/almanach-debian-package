@@ -1,0 +1,19 @@
+/var/log/almanach/collector.log {
+    weekly
+    missingok
+    rotate 52
+    notifempty
+    compress
+    delaycompress
+    endscript
+}
+
+/var/log/almanach/api.log {
+    weekly
+    missingok
+    rotate 52
+    notifempty
+    compress
+    delaycompress
+    endscript
+}

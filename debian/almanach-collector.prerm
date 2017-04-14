@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+invoke-rc.d almanach-collector stop
+
+exit 0
